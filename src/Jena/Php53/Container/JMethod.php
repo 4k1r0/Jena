@@ -4,9 +4,12 @@
  * Created by PhpStorm.
  * User: matthieu
  * Date: 12/04/2016
- * Time: 12:07
+ * Time: 12:06
  */
-class _Parameter
+
+namespace Jena\Php53\Container;
+
+class JMethod
 {
     
 }

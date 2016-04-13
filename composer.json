@@ -1,5 +1,5 @@
 {
-    "name": "4k1r0/phpClassGenerator",
+    "name": "4k1r0/Jena",
     "type": "library",
     "version": "dev",
     "description": "Generate php class code",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-0": {
-            "classgen": "src/"
+            "Jena": "src/"
         }
     }
 }

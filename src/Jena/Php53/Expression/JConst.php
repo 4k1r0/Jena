@@ -6,7 +6,10 @@
  * Date: 12/04/2016
  * Time: 12:15
  */
-class _Const extends _Attribute
+
+namespace Jena\Php53\Expression;
+
+class JConst extends JAttribute
 {
     
 }

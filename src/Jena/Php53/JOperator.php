@@ -6,7 +6,10 @@
  * Date: 12/04/2016
  * Time: 12:10
  */
-class _Operator
+
+namespace Jena\Php53;
+
+class JOperator
 {
     const PLUS = '+';
     const MINUS = '-';

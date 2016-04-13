@@ -6,7 +6,10 @@
  * Date: 12/04/2016
  * Time: 12:06
  */
-class _Attribute
+
+namespace Jena\Php53\Expression;
+
+class JAttribute
 {
     protected $name;
     protected $type;
