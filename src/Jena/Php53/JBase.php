@@ -14,4 +14,9 @@ class JBase
     const TAB   = '    ';
     const EOL   = "\r\n";
     const BLANK_LINE = "\r\n\r\n";
+    const VAR_SIGN = '$';
+    const SEPARATOR_EXP = ';';
+    const SEPARATOR_ITEM = ',';
+    const QUOTE_SIMPLE = "'";
+    const QUOTE_DOUBLE = '"';
 }

@@ -75,27 +75,29 @@ class JClass extends JContainer
         return $this;
     }
 
-    public function add(JContainerAddableInterface $addable)
+    public function add(JContainerAddableClassInterface $addable)
     {
         var_dump(get_class($addable));
         switch( get_class($addable) ){
             case 'JMethod':
+                $this->aMethods[] = $addable;
                 break;
             case 'JAttribute':
+                $this->aAttributes[] = $addable;
                 break;
         }
     }
 
-    public function getCode()
+    public function getDeclaration()
     {
-        $code = 'class ' . $this->name;
+        $code = 'class' . JBase::SPACE . $this->name;
 
         if ( !empty($this->extends) ) {
-            $code .= ' extends ' . $this->extends;
+            $code .= JBase::SPACE . 'extends' . JBase::SPACE . $this->extends;
         }
 
         if ( !empty($this->aImplements) ) {
-            $code .= ' implements ' . implode(', ', $this->aImplements);
+            $code .= JBase::SPACE . 'implements' . JBase::SPACE . implode(', ', $this->aImplements);
         }
 
         $code .= JBase::EOL . JContainer::OPEN . JBase::EOL;

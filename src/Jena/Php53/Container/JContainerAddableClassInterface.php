@@ -9,7 +9,7 @@
 namespace Jena\Php53\Container;
 
 
-interface JContainerAddableInterface
+interface JContainerAddableClassInterface extends JContainerAddableInterface
 {
-    public function getName();
+
 }

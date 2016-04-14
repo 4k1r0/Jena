@@ -10,11 +10,16 @@ namespace Jena\Php53;
 
 class JType
 {
-    public static function getArray(){
+    public static function getArray()
+    {
         return array(
             'int',
+            'integer',
             'float',
+            'double',
+            'real',
             'bool',
+            'boolean',
             'string',
             'array',
             'closure',
@@ -24,15 +29,20 @@ class JType
         );
     }
 
-    public static function getCaster( $type ){
+    public static function getCaster( $type )
+    {
         switch( $type ){
             case 'int':
+            case 'integer':
                 return 'intval';
                 break;
             case 'float':
+            case 'double':
+            case 'real':
                 return 'floatval';
                 break;
             case 'bool':
+            case 'boolean':
                 return 'boolval';
                 break;
             case 'string':
@@ -57,17 +67,21 @@ class JType
         }
     }
 
-    public static function getValidator( $type, $strict = false ){
-
+    public static function getValidator( $type, $strict = false )
+    {
         if( $strict ) {
             switch ( $type ) {
                 case 'int':
+                case 'integer':
                     return 'is_int';
                     break;
                 case 'float':
+                case 'double':
+                case 'real':
                     return 'is_float';
                     break;
                 case 'bool':
+                case 'boolean':
                     return 'is_bool';
                     break;
                 case 'string':
@@ -92,8 +106,12 @@ class JType
         } else {
             switch ( $type ) {
                 case 'int':
+                case 'integer':
                 case 'float':
+                case 'double':
+                case 'real':
                 case 'bool':
+                case 'boolean':
                     return 'is_numeric';
                     break;
                 case 'array':
@@ -116,12 +134,37 @@ class JType
         }
     }
 
-    public static function cast( $type, $value ){
+    public static function cast( $type, $value )
+    {
         if( in_array($type, self::getArray()) ){
             $caster = self::getCaster($type);
             return $caster($value);
         }
     }
 
+    public static function jPrint( $value )
+    {
+        $type = gettype($value);
+        switch($type){
+            case 'array':
+                $print = 'array(';
+                $array = array();
+                foreach ( $value as $index => $item ){
+                    $array[] = self::jPrint($index).' => ' . self::jPrint($item);
+                }
+                $print .= implode(JBase::SEPARATOR_ITEM, $array) . ')';
+                break;
+            case 'string':
+                $print = JBase::QUOTE_SIMPLE . $value . JBase::QUOTE_SIMPLE;
+                break;
+            case 'bool':
+            case 'boolean':
+                $print = $value ? 'true' : 'false';
+                break;
+            default:
+                $print = $value;
+        }
 
+        return $print;
+    }
 }

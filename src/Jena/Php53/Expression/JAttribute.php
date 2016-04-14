@@ -9,11 +9,53 @@
 
 namespace Jena\Php53\Expression;
 
-class JAttribute
+/**
+ * Class Jena\Php53\ExpressionJAttribute
+ *
+ * @package  Jena\Php53\Expression
+ * @version  1.0.0
+ */
+class JAttribute extends JVar implements JContainerAddableClassInterface
 {
-    protected $name;
-    protected $type;
+    /**
+     * @var string
+     */
     protected $visibility;
+
+    /**
+     * @var bool
+     */
     protected $static;
-    protected $default;
+
+    /**
+     * @return string
+     */
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    /**
+     * @param string $visibility
+     */
+    public function setVisibility( $visibility )
+    {
+        $this->visibility = $visibility;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isStatic()
+    {
+        return $this->static;
+    }
+
+    /**
+     * @param boolean $static
+     */
+    public function setStatic( $static )
+    {
+        $this->static = $static;
+    }
 }
