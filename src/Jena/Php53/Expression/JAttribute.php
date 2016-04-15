@@ -40,6 +40,9 @@ class JAttribute extends JVar implements JContainerAddableClassInterface
      */
     public function setVisibility( $visibility )
     {
+        if( $visibility != 'public' || $visibility != 'protected' || $visibility != 'private' ){
+            throw new \InvalidArgumentException("You cannot' use '$visibility' as attribute visibility");
+        }
         $this->visibility = $visibility;
     }
 
@@ -56,6 +59,6 @@ class JAttribute extends JVar implements JContainerAddableClassInterface
      */
     public function setStatic( $static )
     {
-        $this->static = $static;
+        $this->static = (bool)$static;
     }
 }
