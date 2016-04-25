@@ -59,6 +59,7 @@ class JVar extends JComponent implements JContainerAddableInterface
      */
     public function setName( $name )
     {
+        //@TODO filter name starting with a number ex : $0, $0aVar, ...
         if ( preg_match('/\W+/', $name) ) {
             throw new \InvalidArgumentException("You cannot' use '$name' as var name");
         }
