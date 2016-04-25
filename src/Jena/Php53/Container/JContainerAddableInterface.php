@@ -12,4 +12,5 @@ namespace Jena\Php53\Container;
 interface JContainerAddableInterface
 {
     public function getName();
+    public static function getClass();
 }

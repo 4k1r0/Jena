@@ -9,16 +9,40 @@
 
 namespace Jena\Php53\Container;
 
+use Jena\Php53\Expression\JAttribute;
 use Jena\Php53\JBase;
 use Jena\Php53\JReservedword;
 
 class JClass extends JContainer
 {
+    /**
+     * @var string
+     */
     protected $namespace;
+
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var string
+     */
     protected $extends;
+
+    /**
+     * @var array
+     */
     protected $aImplements = array();
+
+    /**
+     * @var array
+     */
     protected $aAttributes;
+
+    /**
+     * @var array
+     */
     protected $aMethods;
 
     public function __construct( $name )
@@ -77,12 +101,11 @@ class JClass extends JContainer
 
     public function add(JContainerAddableClassInterface $addable)
     {
-        var_dump(get_class($addable));
-        switch( get_class($addable) ){
-            case 'JMethod':
+        switch( $addable::getClass() ){
+            case JMethod::getClass():
                 $this->aMethods[] = $addable;
                 break;
-            case 'JAttribute':
+            case JAttribute::getClass():
                 $this->aAttributes[] = $addable;
                 break;
         }
@@ -101,6 +124,11 @@ class JClass extends JContainer
         }
 
         $code .= JBase::EOL . JContainer::OPEN . JBase::EOL;
+
+        foreach ( $this->aAttributes as $oAttribute ) {
+            $code .= JBase::TAB . $oAttribute->getDeclaration() . JBase::EOL;
+        }
+
         $code .= JBase::EOL . JContainer::CLOSE . JBase::EOL;
 
         return $code;

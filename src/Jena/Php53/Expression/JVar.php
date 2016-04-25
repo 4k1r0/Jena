@@ -9,10 +9,11 @@
 namespace Jena\Php53\Expression;
 
 
-use Jena\Php53\Container\JContainerAddableInterface;
 use Jena\Php53\JBase;
+use Jena\Php53\JComponent;
 use Jena\Php53\JOperator;
 use Jena\Php53\JType;
+use Jena\Php53\Container\JContainerAddableInterface;
 
 /**
  * Class Jena\Php53\ExpressionJVar
@@ -20,7 +21,7 @@ use Jena\Php53\JType;
  * @package  Jena\Php53\Expression
  * @version  1.0.0
  */
-class JVar implements JContainerAddableInterface
+class JVar extends JComponent implements JContainerAddableInterface
 {
     /**
      * @var string
@@ -120,6 +121,17 @@ class JVar implements JContainerAddableInterface
     }
 
     /**
+     *
+     *
+     * @return string
+     *
+     * @author Matthieu Dos Santos <m.dossantos@santiane.fr>
+     */
+    public function getPhpName(){
+        return JBase::VAR_SIGN . $this->getName();
+    }
+
+    /**
      * @return mixed
      */
     public function getDefault()
@@ -127,14 +139,22 @@ class JVar implements JContainerAddableInterface
         return $this->default;
     }
 
+    /**
+     * Get code
+     *
+     * @return string
+     *
+     * @author Matthieu Dos Santos <m.dossantos@santiane.fr>
+     */
     public function getDeclaration()
     {
-        $php = JBase::VAR_SIGN . $this->getName();
+        $code = $this->getPhpName();
         if( isset($this->default) ){
-            $php .= JBase::SPACE . JOperator::EQUALS . JBase::SPACE . JType::jPrint($this->default, true);
+            $code .= JBase::SPACE . JOperator::EQUALS . JBase::SPACE . JType::jPrint($this->default, true);
         }
-        $php .= JBase::SEPARATOR_EXP . JBase::EOL;
+        $code .= JBase::SEPARATOR_EXP . JBase::EOL;
 
-        return $php;
+        return $code;
     }
+
 }

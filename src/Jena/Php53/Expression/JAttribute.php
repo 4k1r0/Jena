@@ -9,6 +9,10 @@
 
 namespace Jena\Php53\Expression;
 
+
+use Jena\Php53\Container\JContainerAddableClassInterface;
+use Jena\Php53\JBase;
+
 /**
  * Class Jena\Php53\ExpressionJAttribute
  *
@@ -20,7 +24,7 @@ class JAttribute extends JVar implements JContainerAddableClassInterface
     /**
      * @var string
      */
-    protected $visibility;
+    protected $visibility = 'public';
 
     /**
      * @var bool
@@ -40,10 +44,12 @@ class JAttribute extends JVar implements JContainerAddableClassInterface
      */
     public function setVisibility( $visibility )
     {
-        if( $visibility != 'public' || $visibility != 'protected' || $visibility != 'private' ){
+        if( $visibility != 'public' && $visibility != 'protected' && $visibility != 'private' ){
             throw new \InvalidArgumentException("You cannot' use '$visibility' as attribute visibility");
         }
         $this->visibility = $visibility;
+
+        return $this;
     }
 
     /**
@@ -60,5 +66,25 @@ class JAttribute extends JVar implements JContainerAddableClassInterface
     public function setStatic( $static )
     {
         $this->static = (bool)$static;
+
+        return $this;
+    }
+
+     /**
+     * Get code
+     *
+     * @return string
+     *
+     * @author Matthieu Dos Santos <m.dossantos@santiane.fr>
+     */
+    public function getDeclaration()
+    {
+        if( $this->isStatic() ){
+            $sStatic =  'static' . JBase::SPACE;
+        } else {
+            $sStatic = '';
+        }
+
+        return $this->getVisibility(). JBase::SPACE . $sStatic . parent::getDeclaration();
     }
 }

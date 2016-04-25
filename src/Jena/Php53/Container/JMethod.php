@@ -9,7 +9,14 @@
 
 namespace Jena\Php53\Container;
 
-class JMethod
+class JMethod extends JFunction implements JContainerAddableClassInterface
 {
-    
+    public function getName()
+    {
+        // TODO: Implement getName() method.
+    }
+
+    public static function getClass(){
+        return get_called_class();
+    }
 }

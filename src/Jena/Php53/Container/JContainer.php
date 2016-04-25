@@ -9,7 +9,9 @@
 
 namespace Jena\Php53\Container;
 
-class JContainer
+use Jena\Php53\JComponent;
+
+class JContainer extends JComponent
 {
     const OPEN = '{';
     const CLOSE = '}';
